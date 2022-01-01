@@ -53,7 +53,7 @@ export default defineComponent({
       axios({
         method : 'POST',
         // url    : 'http://localhost:8000/api/login',
-        url    : 'https://jwt-axios-test.herokuapp.com//api/login',
+        url    : 'https://jwt-axios-test.herokuapp.com/api/login',
         data   : { email: this.email, password: this.password },
         headers: {
           'Content-Type': 'application/json',
