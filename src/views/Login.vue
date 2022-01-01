@@ -6,8 +6,8 @@
           <v-card-title>Login</v-card-title>
         </v-app-bar>
         <v-col class="pa-8">
-          <v-text-field label="Email" v-model="email" dense></v-text-field>
-          <v-text-field label="Password" v-model="password" dense></v-text-field>
+          <v-text-field label="Email" v-model="form.email" dense></v-text-field>
+          <v-text-field label="Password" v-model="form.password" dense></v-text-field>
           <p v-if="error">{{ error }}</p>
         </v-col>
         <v-col class="text-right">
@@ -21,13 +21,16 @@
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api'
 import Cookies from 'js-cookie'
-import axios from '@/lib/axios'
+import User from '@/modules/users'
+import { loginUser } from '@/apis/user_api';
 
 export default defineComponent({
   data() {
     return {
-      email: '',
-      password: '',
+      form: {
+        email: '',
+        password: '',
+      } as User,
       error: '' as string | unknown
     }
   },
@@ -45,11 +48,18 @@ export default defineComponent({
       // })
       // .then(response => Cookies.set('_myapp_token', response.data.access_token))
 
-      const response = await axios.post('/login', {
-        email: this.email,
-        password: this.password,
+      // const response = await axios.post('/login', {
+      //   email: this.form.email,
+      //   password: this.form.password,
+      // })
+      // Cookies.set('_myapp_token', response.data.access_token)
+      // this.$router.push('/about')
+      const response = await loginUser({
+        email: this.form.email,
+        password: this.form.password
       })
-      Cookies.set('_myapp_token', response.data.access_token)
+      Cookies.set('_myapp_token', response)
+      this.$router.push('/about')
     }
   }
 })

@@ -11,3 +11,7 @@ export default class User {
     this.password = password
   }
 }
+
+export interface AccessToken {
+  access_token: string;
+}
