@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export default axios.create({
   // baseURL: 'http://localhost:8000/api',
-  baseURL: 'https://jwt-axios-test.herokuapp.com/api/login',
+  baseURL: 'https://jwt-axios-test.herokuapp.com/api',
 
   // headers: {
   //   'Content-Type': 'application/json',
