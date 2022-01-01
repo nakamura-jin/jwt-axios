@@ -21,7 +21,7 @@
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api'
 import Cookies from 'js-cookie'
-import axios from 'axios'
+import axios from '@/lib/axios'
 
 export default defineComponent({
   data() {
@@ -32,35 +32,24 @@ export default defineComponent({
     }
   },
   methods: {
-    submit() {
-      const payload = {
-        email: this.email,
-        password: this.password
-      };
-      // fetch(`http://localhost:8000/api/login`, {
-      //   method: 'POST',
+    async submit() {
+      // axios({
+      //   method : 'POST',
+      //   url    : 'http://localhost:8000/api/login',
+      //   // url    : 'https://jwt-axios-test.herokuapp.com/api/login',
+      //   data   : { email: this.email, password: this.password },
       //   headers: {
       //     'Content-Type': 'application/json',
       //     'Access': 'application/json'
       //   },
-      //   body: JSON.stringify(payload)
       // })
-      // .then((response) => response.json())
-      // .then(res => {
-      //   Cookies.set('_myapp_token', res.access_token)
-      //   console.log(res)
-      // })
-      axios({
-        method : 'POST',
-        // url    : 'http://localhost:8000/api/login',
-        url    : 'https://jwt-axios-test.herokuapp.com/api/login',
-        data   : { email: this.email, password: this.password },
-        headers: {
-          'Content-Type': 'application/json',
-          'Access': 'application/json'
-        },
+      // .then(response => Cookies.set('_myapp_token', response.data.access_token))
+
+      const response = await axios.post('/login', {
+        email: this.email,
+        password: this.password,
       })
-      .then(response => Cookies.set('_myapp_token', response.data.access_token))
+      Cookies.set('_myapp_token', response.data.access_token)
     }
   }
 })
