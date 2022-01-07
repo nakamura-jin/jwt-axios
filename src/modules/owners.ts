@@ -1,4 +1,4 @@
-export default class User {
+export default class Owner {
   id: number;
   name: string;
   email: string;
@@ -12,8 +12,8 @@ export default class User {
   }
 }
 
-export interface LoginUserResponse {
-  loginData: User[]
+export interface LoginOwnerResponse {
+  loginData: Owner[]
   access_token: string;
   token_type: string;
   expires_in: number;
