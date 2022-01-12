@@ -5,6 +5,7 @@ import store from './store'
 import vuetify from './plugins/vuetify'
 import VueComposionApi from '@vue/composition-api'
 import '@/lib/axios'
+// import VueStripeCheckout from '@vue-stripe/vue-stripe'
 
 
 import { ValidationProvider, ValidationObserver, extend, localize } from 'vee-validate';
@@ -29,6 +30,7 @@ Vue.component('ValidationObserver', ValidationObserver);
 Vue.config.productionTip = false
 
 Vue.use(VueComposionApi);
+// Vue.use(VueStripeCheckout, process.env.STRIPE_PUBLIC_KEY);
 
 
 new Vue({

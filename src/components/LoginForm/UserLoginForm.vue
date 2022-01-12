@@ -84,7 +84,7 @@ export default defineComponent({
       this.dialog = true
       setTimeout(() => {
         this.dialog = false
-        // this.$router.push('/about')
+        this.$router.push('/')
         // this.$store.dispatch('getUser')
       }, 3000)
 

@@ -1,32 +1,18 @@
 <template>
-  <v-app>
-    <v-app-bar
+  <v-app id="inspire">
+    <v-navigation-drawer
+      v-model="drawer"
       app
-      color="primary"
-      dark
+      clipped
     >
-      <div class="d-flex align-center">
-          <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
+      <!--  -->
+      <AdminNav />
+    </v-navigation-drawer>
 
-        <router-link to="/">
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-        </router-link>
-      </div>
+    <v-app-bar app color="primary" dark>
+      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
+      <v-toolbar-title>Application</v-toolbar-title>
       <v-spacer></v-spacer>
       <HeaderNav />
     </v-app-bar>
@@ -37,15 +23,21 @@
   </v-app>
 </template>
 
-
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api'
 import HeaderNav from '@/components/HeaderNav.vue'
 import Cookies from 'js-cookie'
+import AdminNav from '@/components/Navbar/AdminNav.vue'
+
 
 export default defineComponent({
   name: 'App',
-  components: { HeaderNav },
+  components: { HeaderNav, AdminNav },
+  data() {
+    return {
+      drawer: null
+    }
+  },
   methods: {
     getLoginData() {
       if(Cookies.get('_myapp_token')) {

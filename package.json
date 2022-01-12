@@ -3,12 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve --mode local",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "@types/js-cookie": "^3.0.1",
+    "@vue-stripe/vue-stripe": "^4.2.9",
     "@vue/composition-api": "^1.4.3",
     "axios": "^0.24.0",
     "core-js": "^3.6.5",
