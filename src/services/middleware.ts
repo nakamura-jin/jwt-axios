@@ -6,7 +6,6 @@ export default {
     if (!token) {
       return next('/login');
     }
-
     next();
   }
 }

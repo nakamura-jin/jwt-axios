@@ -4,9 +4,9 @@ import Owner, { LoginOwnerResponse } from '@/modules/owners'
 import Admin, { LoginAdminResponse } from '@/modules/admins'
 
 
-function createUserFromResponse(res: User): User {
-  return new User(res.id, res.name, res.email, res.password)
-}
+// function createUserFromResponse(res: User): User {
+//   return new User(res.id, res.name, res.email, res.password)
+// }
 
 
 export const getLoginData: () => Promise<User[] | Owner[] | Admin[]> = async () => {
@@ -21,8 +21,8 @@ export interface UserCreateParams {
 }
 
 export const createUser: (params: UserCreateParams) => Promise<User> = async (params: UserCreateParams) => {
-  const res = await axios.post('/register', { name: params.name, email: params.email, password: params.password })
-  return createUserFromResponse(res.data)
+  const response = await axios.post('/register', { name: params.name, email: params.email, password: params.password })
+  return response.data
 }
 
 export interface LoginParams {
@@ -36,4 +36,5 @@ export const login: (params: LoginParams ) => Promise<LoginUserResponse | LoginO
   const response = await axios.post('/login', { email: params.email, password: params.password, type: params.type })
   return response.data
 }
+
 

@@ -12,30 +12,80 @@ export const getMenus: () => Promise<MenuResponse[]> = async () => {
   return response.data.data
 }
 
-export const getOwnerMenus: (params: Menu) => Promise<MenuResponse[]> = async (params: Menu) => {
-  const response = await axios.get(`/menu/owner/${params}`)
+export const getOwnerMenus: (owner_id: string) => Promise<MenuResponse[]> = async (owner_id: string) => {
+  const response = await axios.get(`/owner/menu/${owner_id}`)
   return response.data.data
 }
 
-export const getMenuDetail: (params: Menu) => Promise<MenuResponse[]> = async (params: Menu) => {
+export const getMenuDetail: (params: Menu) => Promise<Menu> = async (params: Menu) => {
   const response = await axios.get(`/menu/${params}`)
   return response.data.data
 }
 
+// export interface createMenuParams {
+//   name: string;
+//   description: string;
+//   price: number | null;
+//   genre: string;
+//   image: null | any;
+//   owner_id: number | null,
+//   area_id: number
+// }
+
+// Base menu create
+// export const createMenu: (params: createMenuParams) => Promise<Menu> = async (params: createMenuParams) => {
+//   const response = await axios.post('/menu', {
+//     name: params.name,
+//     description: params.description,
+//     price: params.price,
+//     genre: params.genre,
+//     image: params.image,
+//     owner_id: params.owner_id,
+//     area_id: params.area_id
+//   }, {
+//     headers: {
+//       'Content-Type': 'multipart/form-data'
+//     }
+//   });
+//   return response.data.data
+// }
 
 
-//stripe
+// create menu ver.1
+// export const createMenu: (formData: any) => Promise<any> = async (formData: any) => {
+//   const response = await axios.post('/menu', formData, {
+//     headers: {
+//       'Content-Type': 'multipart/form-data'
+//     }
+//   })
+//   return response.data.data
+// }
 
 
-export const PaymentCheckOut: (menu_id: number) => Promise<string> = async (menu_id: number) => {
-  const response = await axios.get(`/checkout/${menu_id}`)
-  const sessionId = response.data.id
-  return sessionId
+export interface createMenuParams {
+  name: string;
+  description: string;
+  price: number | null;
+  genre: string;
+  image: never[];
+  owner_id: number | null;
+  area_id: number;
+}
+
+export interface sendDataParams extends FormData {
+  append(name: keyof createMenuParams, value: string | Blob, fileName?: string): createMenuParams
 }
 
 
 
-
+export const createMenu: (formData: any) => Promise<any> = async (formData: any) => {
+  const response = await axios.post('/menu', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  })
+  return response.data.data
+}
 
 
 // export interface UserCreateParams {

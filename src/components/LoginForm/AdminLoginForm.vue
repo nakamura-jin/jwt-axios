@@ -58,6 +58,7 @@
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api'
 import { LoginParams } from '@/apis/login_api'
+import Cookies from 'js-cookie'
 
 
 export interface LoginFormData {
@@ -94,6 +95,9 @@ export default defineComponent({
       this.dialog = true
       setTimeout(() => {
         this.dialog = false
+        if(Cookies.get('_myapp_token')) {
+          this.$router.push('/admin')
+        }
       }, 3000)
 
     },
@@ -102,6 +106,6 @@ export default defineComponent({
       this.form.password = '',
       (this.$refs.obs as HTMLFormElement).reset();
     }
-  }
+  },
 })
 </script>

@@ -15,18 +15,27 @@
 import { defineComponent } from '@vue/composition-api'
 
 export default defineComponent({
+  name: 'Quantity',
   data() {
     return {
-      counter: 1
+      counter: 1 as number
     }
   },
   methods: {
+    setQuantity() {
+      this.$store.commit('SET_QUANTITY', this.counter)
+    },
     add() {
       this.counter += 1
+      this.$store.commit('SET_QUANTITY', this.counter)
     },
     subtract() {
       this.counter -= 1
+      this.$store.commit('SET_QUANTITY', this.counter)
     }
+  },
+  created() {
+    this.setQuantity()
   }
 
 })

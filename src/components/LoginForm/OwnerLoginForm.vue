@@ -96,9 +96,8 @@ export default defineComponent({
       setTimeout(() => {
         this.dialog = false
         if(Cookies.get('_myapp_token')) {
-          this.$router.push({path: '/owner', query: { id: this.$store.state.loginData.id}})
+          this.$router.push(`/owner/${ this.$store.state.loginData.id }`)
         }
-        // this.$store.dispatch('getUser')
       }, 3000)
 
     },

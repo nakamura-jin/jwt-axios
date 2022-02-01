@@ -32,7 +32,7 @@
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api'
-import MenuResponse from '@/modules/menus'
+import { MenuResponse } from '@/modules/menus'
 
 
 export default defineComponent({
@@ -45,7 +45,7 @@ export default defineComponent({
   },
   filters: {
     omittedText(text: string) {
-     // 11文字目以降は"…"
+     // 6文字目以降は"…"
       return text.length > 6 ? text.slice(0, 6) + "…" : text;
     },
   },

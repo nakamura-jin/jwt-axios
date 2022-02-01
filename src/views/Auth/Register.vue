@@ -9,6 +9,7 @@
             </v-app-bar>
             <validation-observer ref="obs" v-slot="ObserverProps">
               <v-col class="pa-6">
+              <p v-if="error" style="color: red;">{{ error }}</p>
                 <validation-provider v-slot="ProviderProps" rules="required" name="名前">
                   <v-text-field label="Name"
                     v-model="form.name"
@@ -107,39 +108,24 @@ export default defineComponent({
       show1: false,
       show2: false,
       error: '' as string | unknown,
-      dialog: false
+      dialog: false,
     }
   },
   methods: {
     async register() {
-      await createUser({
-        name: this.form.name,
-        email: this.form.email,
-        password: this.form.password
-      })
-      .then(() => {
+      try {
         this.dialog = true
-        setTimeout(() => {
-          this.dialog = false
-          this.$router.push('/login')
-        }, 3000)
-      })
-      .catch((error) => {
-        switch (error.code) {
-          case 'auth/invalid-email':
-            alert('メールアドレスの形式が違います。')
-            break
-          case 'auth/email-already-in-use':
-            alert('このメールアドレスはすでに使われています。')
-            break
-          case 'auth/weak-password':
-            alert('パスワードは6文字以上で入力してください。')
-            break
-          default:
-            alert('エラーが起きました。しばらくしてから再度お試しください。')
-            break
-        }
-      })
+        await createUser({
+          name: this.form.name,
+          email: this.form.email,
+          password: this.form.password
+        })
+        this.dialog = false
+        this.$router.push('/registration_complete')
+      } catch (err) {
+        this.dialog = false
+        this.error = err
+      }
     },
     clear() {
       this.form.name = '',

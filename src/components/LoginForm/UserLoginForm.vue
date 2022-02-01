@@ -57,6 +57,7 @@
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api'
 import { LoginParams } from '@/apis/login_api'
+import Cookies from 'js-cookie'
 
 
 export default defineComponent({
@@ -84,8 +85,9 @@ export default defineComponent({
       this.dialog = true
       setTimeout(() => {
         this.dialog = false
-        this.$router.push('/')
-        // this.$store.dispatch('getUser')
+        if(Cookies.get('_myapp_token')) {
+          this.$router.push('/')
+        }
       }, 3000)
 
     },
