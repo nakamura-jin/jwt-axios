@@ -15,6 +15,7 @@
                   dense
                   :error-messages="ProviderProps.errors[0]"
                   class="mt-3"
+                  data-test="email"
                 ></v-text-field>
               </validation-provider>
 
@@ -28,6 +29,7 @@
                   @click:append="show3 = !show3"
                   :error-messages="ProviderProps.errors[0]"
                   class="mt-3"
+                  data-test="password"
                 ></v-text-field>
               </validation-provider>
             </v-col>

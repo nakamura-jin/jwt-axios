@@ -31,6 +31,9 @@
       <v-col v-else class="mt-8 mx-auto" md="8">
         <h2 class="text-center">アクセスできませんでした</h2>
         <p class="text-center mt-12">受信メールより内容をご確認ください。</p>
+        <v-col class="text-center">
+          <router-link to="/">トップページへ</router-link>
+        </v-col>
       </v-col>
     </v-row>
   </v-container>

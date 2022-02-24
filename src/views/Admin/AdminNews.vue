@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row>
-      <v-col md="8">
+      <v-col v-if="!createNews" md="8" class="center">
       <validation-observer ref="obs" v-slot="ObserverProps">
         <v-simple-table>
           <template v-slot:default>
@@ -40,9 +40,16 @@
         </v-simple-table>
         <v-col class="text-right my-6">
           <v-btn @click="clear" color="warning" class="mr-6">clear</v-btn>
-          <v-btn color="primary" @click="create" :disabled="ObserverProps.invalid || !ObserverProps.validated">登録</v-btn>
+          <v-btn color="primary" @click="create" :disabled="ObserverProps.invalid || !ObserverProps.validated" :loading="dialog">登録</v-btn>
         </v-col>
       </validation-observer>
+      </v-col>
+
+      <v-col v-else class="center">
+        <h2 class="text-center">お知らせを作成しました</h2>
+        <v-col class="text-center mt-10">
+          <v-btn class="mx-auto" @click="close" color="primary">閉じる</v-btn>
+        </v-col>
       </v-col>
     </v-row>
   </v-container>
@@ -59,16 +66,27 @@ export default defineComponent({
       form: {
         title: '',
         text: '',
-      }
+      },
+      createNews: false,
+      dialog: false
     }
   },
   methods: {
     async create() {
-      console.log(this.form.title, this.form.text)
+      this.dialog = true
       await createNews({
         title: this.form.title,
         text: this.form.text
       })
+      setTimeout(() => {
+        this.dialog = false
+        this.createNews = true
+        this.form.title = ''
+        this.form.text = ''
+      }, 3000)
+    },
+    close() {
+      this.createNews = false
     },
     clear() {
       this.form.title = '',

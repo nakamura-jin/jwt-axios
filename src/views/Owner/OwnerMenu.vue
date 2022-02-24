@@ -23,13 +23,15 @@ export default defineComponent({
   computed: {
     ownerMenus(): MenuResponse {
       return this.$store.state.ownerMenus
+    },
+    id() {
+      return this.$store.state.loginData.id
     }
   },
   methods: {
     getMyMenus() {
-      if(this.$store.state.ownerMenus.length == 0) {
         this.$store.dispatch('ownerMenus', { owner_id: this.$route.params.id })
-      }
+        // this.$store.dispatch('ownerMenus', { owner_id: this.$store.state.loginData.id })
     }
   },
   created() {

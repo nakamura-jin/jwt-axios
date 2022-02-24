@@ -17,6 +17,7 @@ import AdminNews from '../views/Admin/AdminNews.vue'
 import RegistrationComplete from '../views/Auth/RegistrationComplete.vue'
 import ChangePassword from '../views/UserSetting/ChangePassword.vue'
 import ChangeEmail from '../views/UserSetting/ChangeEmail.vue'
+import OwnerProductsStock from '../views/Owner/OwnerProductsStock.vue'
 
 Vue.use(VueRouter)
 
@@ -50,6 +51,7 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: '/gift/:url',
+    // path: '/:url',
     name: 'Gift',
     component: Gift,
   },
@@ -107,6 +109,11 @@ const routes: Array<RouteConfig> = [
     path: '/change_email',
     name: 'ChangeEmail',
     component: ChangeEmail,
+  },
+  {
+    path: '/owner/:id/products_stock',
+    name: 'OwnerProductsStock',
+    component: OwnerProductsStock,
   },
   
 ]

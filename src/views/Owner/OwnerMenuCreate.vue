@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row>
-      <v-col>
+      <v-col class="mx-auto mt-12" md="10">
       <validation-observer ref="obs" v-slot="ObserverProps">
         <v-simple-table>
           <template v-slot:default>
@@ -21,7 +21,7 @@
                 <td width="40%">商品名</td>
                 <td class="py-2">
                   <validation-provider v-slot="ProviderProps" rules="required" name="商品名" class="ma-0 pa-0">
-                    <v-text-field dense solo flat outlined v-model="form.name" hide-details :error-messages="ProviderProps.errors[0]"></v-text-field>
+                    <v-text-field placeholder="商品名" dense solo flat outlined v-model="form.name" hide-details :error-messages="ProviderProps.errors[0]"></v-text-field>
                     <span v-if="ProviderProps.errors[0]" style="color: red">{{ ProviderProps.errors[0] }}</span>
                   </validation-provider>
                 </td>
@@ -30,7 +30,7 @@
                 <td width="40%">商品説明</td>
                   <td class="py-2">
                     <validation-provider v-slot="ProviderProps" rules="required" name="商品説明">
-                      <v-textarea dense solo hide-details flat outlined v-model="form.description" :error-messages="ProviderProps.errors[0]"></v-textarea>
+                      <v-textarea placeholder="商品説明" dense solo hide-details flat outlined v-model="form.description" :error-messages="ProviderProps.errors[0]"></v-textarea>
                       <span v-if="ProviderProps.errors[0]" style="color: red">{{ ProviderProps.errors[0] }}</span>
                     </validation-provider>
                   </td>
@@ -39,7 +39,7 @@
                 <td width="40%">価格</td>
                 <td class="py-2">
                   <validation-provider v-slot="ProviderProps" rules="required|numeric" name="価格">
-                    <v-text-field dense solo hide-details flat outlined v-model="form.price" :error-messages="ProviderProps.errors[0]"></v-text-field>
+                    <v-text-field placeholder="数値のみ入力" dense solo hide-details flat outlined v-model="form.price" :error-messages="ProviderProps.errors[0]"></v-text-field>
                     <span v-if="ProviderProps.errors[0]" style="color: red">{{ ProviderProps.errors[0] }}</span>
                   </validation-provider>
                 </td>

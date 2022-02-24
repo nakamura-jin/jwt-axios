@@ -26,55 +26,61 @@
         dark
       >
 
-<!-------------------- お店 -------------------->
-    <!-- <v-list-group
-        :value="true"
-        prepend-icon="mdi-glass-mug"
-      > -->
-        <!-- <template v-slot:activator>
-          <v-list-item-title>お店</v-list-item-title>
-        </template> -->
-
+<!-------------------- トップページ -------------------->
         <v-list-item
-          v-for="(shop, i) in shops"
-          :key="i"
-          link
-          :to="shop.link"
+          :to="`/owner/${ this.$store.state.loginData.id }`"
         >
 
-        <v-list-item-title v-text="shop.text" class="text-center"></v-list-item-title>
+        <v-list-item-icon>
+            <v-icon>mdi-web</v-icon>
+        </v-list-item-icon>
 
-          <v-list-item-icon>
-            <v-icon v-text="shop.icon"></v-icon>
-          </v-list-item-icon>
+        <v-list-item-title>トップページ</v-list-item-title>
 
         </v-list-item>
-    <!-- </v-list-group> -->
 
-<!-------------------- 従業員 -------------------->
-    <!-- <v-list-group
+
+
+<!-------------------- レジ -------------------->
+        <v-list-item
+          :to="`/owner/${ this.$store.state.loginData.id }`"
+        >
+
+        <v-list-item-icon>
+            <v-icon>mdi-cash-register</v-icon>
+        </v-list-item-icon>
+
+        <v-list-item-title>レジ</v-list-item-title>
+
+        </v-list-item>
+
+
+<!-------------------- 商品 -------------------->
+    <v-list-group
         :value="true"
         prepend-icon="mdi-card-account-details"
+        color="white"
+
       >
         <template v-slot:activator>
-          <v-list-item-title>従業員</v-list-item-title>
+          <v-list-item-title>商品</v-list-item-title>
         </template>
 
         <v-list-item
-          v-for="(member, i) in members"
+          v-for="(product, i) in products"
           :key="i"
           link
-          :to="member.link"
+          :to="product.link"
         >
 
-        <v-list-item-title v-text="member.text" class="text-center"></v-list-item-title>
+        <v-list-item-icon  class="mx-4">
+          <v-icon v-text="product.icon"></v-icon>
+        </v-list-item-icon>
 
-          <v-list-item-icon>
-            <v-icon v-text="member.icon"></v-icon>
-          </v-list-item-icon>
+        <v-list-item-title v-text="product.text" class="ml-10"></v-list-item-title>
 
         </v-list-item>
-    </v-list-group> -->
+    </v-list-group>
 
 <!-------------------- ユーザー -------------------->
     <!-- <v-list-group
@@ -115,18 +121,17 @@ export default defineComponent({
   data() {
     return {
       selectedItem: 0,
-      shops: [
-        { text: 'サイト', icon: 'mdi-web', link: '/top' },
-        { text: '商品', icon: 'mdi-silverware-variant', link: `/owner/${this.$route.params.id}/menu` },
-        { text: 'オーダー', icon: 'mdi-note-edit', link: '/order' },
-        { text: 'ユーザー一覧', icon: 'mdi-folder-account', link: '/user'},
-      ]
+      products: [
+        // { text: '商品一覧', icon: 'mdi-clipboard-list-outline', link: `/owner/${this.$route.params.id}/menu` },
+        { text: '商品一覧', icon: 'mdi-clipboard-list-outline', link: `/owner/${this.$store.state.loginData.id}/menu` },
+        { text: '在庫管理', icon: 'mdi-clipboard-list-outline', link: `/owner/${this.$store.state.loginData.id}/products_stock` },
+      ],
     }
   },
   computed: {
     loginData() {
       return this.$store.state.loginData
     }
-  },
+  }
 })
 </script>

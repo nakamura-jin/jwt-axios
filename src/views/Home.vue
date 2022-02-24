@@ -2,14 +2,12 @@
   <v-container>
     <v-row>
       <v-col>
-        <TodoApp />
         <v-img v-if="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm" src="https://cdn.pixabay.com/photo/2016/04/09/02/09/cherry-blossoms-1317308_1280.jpg" width="100%" height="300"></v-img>
         <v-img v-else src="https://cdn.pixabay.com/photo/2016/04/09/02/09/cherry-blossoms-1317308_1280.jpg" width="100%" height="500"></v-img>
-
         <v-col class="mt-8">
-          <!-- ここにアナウンス（お知らせ）のコンポーネントを入れる -->
+
           <h4>お知らせ</h4>
-          <v-sheet>
+          <v-sheet class="mt-8">
             <v-list-item two-line v-for="(item, i) in news" :key="i" @click="selectNews(item)">
               <v-list-item-content>
                 <v-list-item-title class="d-flex font-weight-bold"><NewArrival :news="item" /> {{ item.title }}</v-list-item-title>
@@ -21,25 +19,24 @@
 
         <v-col>
           <!----- スマホ ----->
-          <div v-if="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm">
+          <div v-if="$vuetify.breakpoint.xs || $vuetify.breakpoint.sm" class="mt-12">
             <h4>おすすめ</h4>
             <v-col v-for="menu in menus" :key="menu.id" cols="6" class="py-0 px-1 d-inline-flex">
-              <MenuCard :menu="menu" />
+              <MenuCard :menu="menu" class="mt-8" />
             </v-col>
           </div>
           <!----- ここまでスマホ ----->
 
           <!----- PC ----->
-          <v-sheet v-else>
+          <v-sheet v-else class="mt-12">
             <h4>おすすめ</h4>
             <v-slide-group>
               <v-slide-item v-for="menu in menus" :key="menu.id" class="d-inline-flex">
-                <MenuCard :menu="menu" />
+                <MenuCard :menu="menu" class="mt-8" />
               </v-slide-item>
             </v-slide-group>
           </v-sheet>
           <!----- ここまでPC ----->
-          <router-link to="/purchased">purchased</router-link>
         </v-col>
       </v-col>
     </v-row>
@@ -52,11 +49,10 @@ import MenuCard from '@/components/MenuCard.vue'
 import Menu from '@/modules/menus'
 import NewArrival from '@/components/NewArrival.vue'
 import { News } from '@/apis/admin_lists'
-import TodoApp from '@/components/TodoApp.vue'
 
 export default defineComponent({
   name: 'About',
-  components: { MenuCard, NewArrival, TodoApp },
+  components: { MenuCard, NewArrival },
   data() {
     return {
       model: 0,

@@ -7,6 +7,7 @@ export const createGift: (gift: Gift) => Promise<GiftResponse> = async (gift: Gi
 }
 
 export const getSelectedGift: (url: string) => Promise<GiftResponse> = async (url: string) => {
-  const response = await axios.get(`/gift${url}`)
+  // const response = await axios.get(`/gift${url}`)
+  const response = await axios.get(url)
   return response.data.data
 }

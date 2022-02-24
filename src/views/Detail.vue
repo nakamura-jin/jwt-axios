@@ -74,7 +74,7 @@ export default defineComponent({
   data(){
     return {
       id: this.$route.query.menu_id,
-      loading: false,
+      loading: false, 
       sessionId: '', // session id from backend
       publishableKey: process.env.VUE_APP_STRIPE_PUBLISHABLE_KEY,
       error: '' as string | unknown

@@ -50,6 +50,8 @@
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api'
 import { ListsResponse } from '@/apis/admin_lists'
+import User from '@/modules/users'
+import Owner from '@/modules/owners'
 
 
 export default defineComponent({
@@ -63,7 +65,7 @@ export default defineComponent({
   computed: {
     lists() {
       if(this.select == 'user') {
-        let users = []
+        let users = [] as User[]
         for(let i = 0; i < this.$store.state.allUser.length; i++) {
           let user = this.$store.state.allUser[i]
           if(user.email.indexOf(this.searchUser) !== -1 || user.name.indexOf(this.searchUser) !== -1) {
@@ -73,7 +75,7 @@ export default defineComponent({
         return users
       }
       if(this.select == 'owner') {
-        let owners = []
+        let owners = [] as Owner[]
         for(let i = 0; i < this.$store.state.allOwner.length; i++) {
           let owner = this.$store.state.allOwner[i]
           if(owner.email.indexOf(this.searchUser) !== -1 || owner.name.indexOf(this.searchUser) !== -1) {

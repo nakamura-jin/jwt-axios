@@ -4,25 +4,22 @@
       v-model="drawer"
       app
       clipped
-      v-if="this.$store.state.gift.length == 0"
     >
       <!--  -->
       <AdminNav v-if="loginData.type_id == 1" />
       <OwnerNav v-if="loginData.type_id == 2" />
       <UserNav v-if="loginData.type_id == 3" />
+      <NoLoggedInNav v-else />
     </v-navigation-drawer>
 
-    <v-app-bar app color="primary" dark v-if="this.$store.state.gift.length == 0">
+    <v-app-bar app color="primary" dark>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
       <v-toolbar-title>Application</v-toolbar-title>
       <v-spacer></v-spacer>
-      <HeaderNav />
+      <HeaderNav v-if="!$vuetify.breakpoint.mobile" />
     </v-app-bar>
 
-    <v-app-bar app flat v-else class="d-flex justify-center">
-      <v-toolbar-title class="font-weight-bold">{{ gift.owner_name }}</v-toolbar-title>
-    </v-app-bar>
 
     <v-main>
       <router-view />
@@ -37,12 +34,13 @@ import Cookies from 'js-cookie'
 import AdminNav from '@/components/Navbar/AdminNav.vue'
 import OwnerNav from '@/components/Navbar/OwnerNav.vue'
 import UserNav from '@/components/Navbar/UserNav.vue'
+import NoLoggedInNav from '@/components/Navbar/NoLoggedInNav.vue'
 
 
 
 export default defineComponent({
   name: 'App',
-  components: { HeaderNav, AdminNav, OwnerNav, UserNav },
+  components: { HeaderNav, AdminNav, OwnerNav, UserNav, NoLoggedInNav },
   data() {
     return {
       drawer: false
@@ -53,10 +51,11 @@ export default defineComponent({
       if(Cookies.get('_myapp_token')) {
         this.$store.dispatch('getData')
       }
-    }
+    },
   },
   created() {
     this.getLoginData()
+    // this.refreshToken()
   },
   computed: {
     loginData: function () {

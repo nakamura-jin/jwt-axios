@@ -6,17 +6,17 @@ import Admin from '@/modules/admins'
 import axios from 'axios'
 import { login, getLoginData } from '@/apis/login_api'
 import Cookies from 'js-cookie'
-import MenuResponse from '@/modules/menus'
-import Menu from '@/modules/menus'
-import { getMenus, getOwnerMenus, getMenuDetail } from '@/apis/menu_apis'
+import Menu, { MenuResponse } from '@/modules/menus'
+import Stock from '@/modules/stocks'
+import { getMenus, getOwnerMenus, getMenuDetail, updateStockQuantity } from '@/apis/menu_apis'
 import { PurchaseResponse, Purchase, sendMail } from '@/apis/checkout_apis'
 import { createGift, getSelectedGift } from '@/apis/gift_apis'
 import { GiftResponse } from '@/modules/gifts'
 import { userLists, ownerLists, ListsResponse, getAllNews, News } from '@/apis/admin_lists'
 
 
-
 Vue.use(Vuex)
+
 
 export default new Vuex.Store({
   state: {
@@ -32,6 +32,7 @@ export default new Vuex.Store({
     allUser: [] as ListsResponse[],
     allOwner: [] as ListsResponse[],
     allNews: [] as News[],
+    stock: [] as Stock[]
   },
 
 
@@ -92,6 +93,30 @@ export default new Vuex.Store({
     //News
     ALL_NEWS(state, data) {
       state.allNews = data
+    },
+
+
+    //stock
+    SET_STOCK(state, data) {
+      state.stock.push({ id: data.id, owner_id: data.owner_id, product_code: data.product_code, name: data.name, stockQuantity: data.quantity, recievedQuantity: 1 })
+    },
+
+    UPDATE_RECIEVED_QUANTITY(state, { code, recievedQuantity }) {
+      state.stock.forEach(item => {
+        if (item.product_code == code) {
+          item.recievedQuantity = recievedQuantity
+        }
+      })
+    },
+
+    UPDATE_STOCK(state) {
+      state.stock = []
+    },
+
+    DELETE_SET_STOCK(state, data) {
+      const newStock = state.stock.filter(item => item.name !== data.name)
+      state.stock = newStock
+      console.log(newStock)
     }
   },
 
@@ -192,6 +217,12 @@ export default new Vuex.Store({
     async getNews({ commit }) {
       const response = await getAllNews()
       commit('ALL_NEWS', response)
+    },
+
+    //stock quantity
+    async updateQuantity({ commit }) {
+      const response = await updateStockQuantity(this.state.stock)
+      commit('UPDATE_STOCK')
     }
 
 

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import Menu, { MenuResponse } from '@/modules/menus'
-
+import Stock from '@/modules/stocks'
 
 // function createUserFromResponse(res: User): User {
 //   return new User(res.id, res.name, res.email, res.password)
@@ -19,6 +19,23 @@ export const getOwnerMenus: (owner_id: string) => Promise<MenuResponse[]> = asyn
 
 export const getMenuDetail: (params: Menu) => Promise<Menu> = async (params: Menu) => {
   const response = await axios.get(`/menu/${params}`)
+  return response.data.data
+}
+
+
+
+interface SendStock {
+  stock: Stock[];
+  owner_id: number
+  product_code: number;
+  name: string;
+  stockQuantity: number;
+  recievedQuantity?: number
+}
+export const updateStockQuantity: (params: Stock[]) => Promise<void> = async (params: any) => {
+  const response = await axios.put(`/menu/${params[0].owner_id}/update_stock`, {
+    stock: params
+  })
   return response.data.data
 }
 

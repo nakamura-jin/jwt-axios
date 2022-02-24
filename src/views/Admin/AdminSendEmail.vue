@@ -1,10 +1,10 @@
 <template>
   <v-container>
     <v-row>
-      <v-col>
+      <v-col v-if="!sendedEmail">
         <h2 class="text-center my-4">メッセージ</h2>
         <v-col class="text-right">
-          <v-btn icon large color="primary" @click="send"><v-icon large>mdi-arrow-up-circle</v-icon></v-btn>
+          <v-btn icon large color="primary" @click="send" :loading="sending"><v-icon large>mdi-arrow-up-circle</v-icon></v-btn>
         </v-col>
         <v-col class="d-flex pb-0" style="border-bottom: 1px solid gray">
           <span class="pt-2">宛先: </span>
@@ -48,6 +48,14 @@
           <MailingList @selectUser="selectUser"/>
         </v-dialog>
       </v-col>
+
+
+      <v-col v-else class="center">
+        <h2 class="text-center">メール送信しました</h2>
+        <v-col class="text-center mt-10">
+          <v-btn class="mx-auto" @click="close" color="primary">閉じる</v-btn>
+        </v-col>
+      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -66,7 +74,9 @@ export default defineComponent({
   },
   data() {
     return {
+      sendedEmail: false,
       dialog: false,
+      sending: false,
       user: '',
       email: '',
       title: '',
@@ -89,7 +99,7 @@ export default defineComponent({
       this.email = ''
     },
     async send() {
-      console.log('')
+      this.sending = true
       await axios.post('/admin/send', {
         name: this.user,
         email: this.email,
@@ -97,8 +107,17 @@ export default defineComponent({
         text: this.text
       })
       .then(() => {
+        this.sending = false
         console.log('OK')
+        this.user = ''
+        this.email = ''
+        this.title = ''
+        this.text = ''
+        this.sendedEmail = true
       })
+    },
+    close() {
+      this.sendedEmail = false
     }
   },
   created() {
